@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ВАТАФА?!!!</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/xml2js@0.5.0/dist/xml2js.min.js"></script>
     <style>
         :root {
             --bg: #090909;
@@ -210,6 +211,72 @@
             font-size: 0.92rem;
         }
 
+        .youtube-section {
+            margin-bottom: 60px;
+            padding: 30px 24px;
+            background: rgba(255,255,255,0.02);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+        }
+
+        .youtube-section h2 {
+            font-size: 1.4rem;
+            margin-bottom: 8px;
+            color: var(--text);
+        }
+
+        .youtube-section p {
+            color: var(--muted);
+            font-size: 0.98rem;
+            margin-bottom: 20px;
+        }
+
+        .videos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 16px;
+        }
+
+        .video-card {
+            overflow: hidden;
+            border-radius: 12px;
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.06);
+            transition: all 0.3s ease;
+        }
+
+        .video-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        .video-thumbnail {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .video-info {
+            padding: 14px;
+        }
+
+        .video-title {
+            font-weight: 600;
+            font-size: 0.95rem;
+            color: var(--text);
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            margin-bottom: 8px;
+        }
+
+        .video-date {
+            font-size: 0.85rem;
+            color: var(--muted);
+        }
+
         @media (max-width: 720px) {
             .topbar {
                 flex-direction: column;
@@ -220,6 +287,10 @@
                 flex-direction: column;
                 align-items: stretch;
             }
+
+            .videos-grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
@@ -229,17 +300,27 @@
         <div class="container topbar">
             <div class="brand">
                 <div class="brand-name">ВАТАФА?!!!</div>
-                <div class="brand-subtitle">Что происходит?!</div>
+                <div class="brand-subtitle">Заметки и последние видео</div>
             </div>
-            <a class="note-link" href="#feed">Вниз ленты</a>
+            <a class="note-link" href="#feed">К ленте</a>
         </div>
     </header>
 
     <main class="container">
         <section class="hero">
-            <h1 class="hero-title">Место для ВАТАФА?!!!</h1>
-            <p class="hero-desc">Короткие мысли, наблюдения и заметки без подписи. Анонимно, открыто и просто для чтения.</p>
-            <div class="hero-note">Каждый новый пост добавляется внизу,  старые записи поднимаются вверх.</div>
+            <h1 class="hero-title">ВАТАФА?!! — заметки и видео</h1>
+            <p class="hero-desc">Место, где новые видео встречаются с короткими мыслями. Всё анонимно, открыто и без фильтров. Последние видео с YouTube канала и персональные заметки в одном потоке.</p>
+            <div class="hero-note">Новое контент добавляется снизу, старое поднимается вверх. Просто, минималистично, честно.</div>
+        </section>
+
+        <section class="youtube-section">
+            <h2>📺 Последние видео</h2>
+            <p>Прямо с YouTube канала — свежие видео загружаются автоматически</p>
+            <div id="videos-container" class="videos-grid">
+                <div style="padding: 40px; text-align: center; grid-column: 1/-1; color: var(--muted);">
+                    Загружаю видео...
+                </div>
+            </div>
         </section>
 
         <section id="feed" class="feed">
@@ -253,25 +334,25 @@
             <div class="posts">
                 <article class="post-card">
                     <div class="post-meta">
-                        <span>сейчас</span>
+                        <span>2 часа назад</span>
                         <span>анонимно</span>
                     </div>
-                    <div class="post-text">Сегодняшний день начинается с мысли: меньше громких целей, больше тихого движения вперед.</div>
+                    <div class="post-text">Хороший дизайн должен исчезнуть. Человек должен видеть только контент, забыть про интерфейс.</div>
                     <div class="post-tags">
-                        <span class="tag">#утро</span>
-                        <span class="tag">#мысли</span>
+                        <span class="tag">#дизайн</span>
+                        <span class="tag">#минимализм</span>
                     </div>
                 </article>
 
                 <article class="post-card">
                     <div class="post-meta">
-                        <span>1 час назад</span>
+                        <span>3 часа назад</span>
                         <span>анонимно</span>
                     </div>
-                    <div class="post-text">Напоминание: фиксируй идею сразу, иначе она останется туманной и потеряет форму.</div>
+                    <div class="post-text">Идеальная система хранения знаний — это та, которую ты постоянно используешь, а не совершенствуешь.</div>
                     <div class="post-tags">
-                        <span class="tag">#запись</span>
-                        <span class="tag">#фокус</span>
+                        <span class="tag">#продуктивность</span>
+                        <span class="tag">#знания</span>
                     </div>
                 </article>
 
@@ -280,10 +361,10 @@
                         <span>вчера</span>
                         <span>анонимно</span>
                     </div>
-                    <div class="post-text">Чем больше объясняешь идею миру, тем ценнее оставить место для тишины и собственных выводов.</div>
+                    <div class="post-text">YouTube + личный блог заметок — это комбо, которая должна была быть раньше. Видео для массовой аудитории, заметки для самого себя.</div>
                     <div class="post-tags">
-                        <span class="tag">#размышления</span>
-                        <span class="tag">#тишина</span>
+                        <span class="tag">#youtube</span>
+                        <span class="tag">#контент</span>
                     </div>
                 </article>
 
@@ -292,10 +373,22 @@
                         <span>2 дня назад</span>
                         <span>анонимно</span>
                     </div>
-                    <div class="post-text">Писать заметки без имени — значит позволить мыслям быть тем, чем они есть, без лишнего контекста.</div>
+                    <div class="post-text">Парсинг RSS, автозагрузка видео, минималистичный интерфейс — это достаточно, чтобы создать место, которое работает.</div>
                     <div class="post-tags">
-                        <span class="tag">#анонимность</span>
-                        <span class="tag">#блог</span>
+                        <span class="tag">#разработка</span>
+                        <span class="tag">#автоматизация</span>
+                    </div>
+                </article>
+
+                <article class="post-card">
+                    <div class="post-meta">
+                        <span>только что</span>
+                        <span>анонимно</span>
+                    </div>
+                    <div class="post-text">Когда видео и мысли в одном месте, всё становится проще. Не нужно прыгать между платформами.</div>
+                    <div class="post-tags">
+                        <span class="tag">#интеграция</span>
+                        <span class="tag">#workflow</span>
                     </div>
                 </article>
             </div>
@@ -303,8 +396,78 @@
     </main>
 
     <footer class="container">
-        <p>Все заметки доступны любому. Никаких аккаунтов, только текст и мысли.</p>
+        <p>Все заметки и видео доступны любому. Без регистрации, без рекламы — только контент.</p>
     </footer>
+
+    <script>
+        // Fetch YouTube channel videos via RSS
+        const CHANNEL_ID = 'UC3oi3pM9LX_RLwEsm1D4Xjw';
+        const RSS_URL = `https://www.youtube.com/feeds/videos.xml?channel_id=${CHANNEL_ID}`;
+
+        async function fetchYouTubeVideos() {
+            try {
+                const response = await fetch(`https://api.allorigins.win/raw?url=${encodeURIComponent(RSS_URL)}`);
+                const xmlText = await response.text();
+                
+                // Parse XML
+                const parser = new DOMParser();
+                const xmlDoc = parser.parseFromString(xmlText, "text/xml");
+                
+                if (xmlDoc.getElementsByTagName("parsererror").length > 0) {
+                    throw new Error("XML Parse Error");
+                }
+                
+                const entries = xmlDoc.getElementsByTagName('entry');
+                const videos = [];
+                
+                for (let i = 0; i < Math.min(entries.length, 8); i++) {
+                    const entry = entries[i];
+                    const title = entry.getElementsByTagName('title')[0]?.textContent || 'Видео';
+                    const published = entry.getElementsByTagName('published')[0]?.textContent || '';
+                    const videoId = entry.getElementsByTagName('yt:videoId')[0]?.textContent || '';
+                    const link = entry.getElementsByTagName('link')[0]?.getAttribute('href') || '';
+                    
+                    const thumbnail = `https://img.youtube.com/vi/${videoId}/mqdefault.jpg`;
+                    const date = new Date(published).toLocaleDateString('ru-RU');
+                    
+                    videos.push({
+                        title,
+                        date,
+                        thumbnail,
+                        link,
+                        videoId
+                    });
+                }
+                
+                renderVideos(videos);
+            } catch (error) {
+                console.error('Ошибка загрузки видео:', error);
+                document.getElementById('videos-container').innerHTML = 
+                    '<div style="padding: 40px; text-align: center; grid-column: 1/-1; color: var(--muted);">Не удалось загрузить видео. Попробуйте позже.</div>';
+            }
+        }
+
+        function renderVideos(videos) {
+            const container = document.getElementById('videos-container');
+            if (videos.length === 0) {
+                container.innerHTML = '<div style="padding: 40px; text-align: center; grid-column: 1/-1; color: var(--muted);">Видео ещё не загружены</div>';
+                return;
+            }
+            
+            container.innerHTML = videos.map(video => `
+                <a href="${video.link}" target="_blank" class="video-card">
+                    <img src="${video.thumbnail}" alt="${video.title}" class="video-thumbnail" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22300%22 height=%22180%22%3E%3Crect fill=%22%23222%22 width=%22300%22 height=%22180%22/%3E%3C/svg%3E'">
+                    <div class="video-info">
+                        <div class="video-title">${video.title}</div>
+                        <div class="video-date">${video.date}</div>
+                    </div>
+                </a>
+            `).join('');
+        }
+
+        // Load videos on page load
+        document.addEventListener('DOMContentLoaded', fetchYouTubeVideos);
+    </script>
 
 </body>
 </html>
