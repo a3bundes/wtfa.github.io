@@ -6,14 +6,55 @@
     <title>ВАТАФА?!!!</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <style>
+        body {
+            margin: 0;
+            min-height: 200vh;
+            background-color: black;
+            color: white;
+            font-family: 'Roboto', sans-serif;
+            font-weight: 700;
+            overflow-x: hidden;
+        }
+
+        .page {
+            display: flex;
+            flex-direction: column;
+            min-height: 200vh;
+            text-align: center;
+            padding: 100px 20px 40px;
+            box-sizing: border-box;
+        }
+
+        .main {
+            font-size: 60px;
+            line-height: 1.1;
+            margin: 0 auto;
+            max-width: 900px;
+        }
+
+        .spacer {
+            flex: 1;
+            min-height: 80vh;
+        }
+
+        .main a {
+            color: white;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
         @media (max-width: 600px) {
-            body {
-                font-size: 60px;
+            .main {
+                font-size: 48px;
                 padding-top: 50px;
-                padding-bottom: 50px;
             }
         }
     </style>
 </head>
-<body style="background: linear-gradient(to bottom, darkblue, white); color: black; text-align: center; font-size:60px; font-family: 'Roboto', sans-serif; font-weight: 700; padding-top: 100px; padding-bottom: 100px;">ВАТАФА?!</body>
+<body>
+    <div class="page">
+        <div class="main">ВАТАФА?!<a href="mailto:a.andrianov@pedalhard.ru"></a></div>
+        <div class="spacer"></div>
+    </div>
+</body>
 </html>
