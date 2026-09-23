@@ -4,300 +4,201 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>WTFA.RU — Data & AI решения</title>
-  <meta name="description" content="Команда экспертов WTFA.RU: Data Engineering, AI/ML, BI-аналитика. Превращаем данные в бизнес-результат.">
-  
-  <!-- Шрифты Inter (как у Яндекса/ProBlogger) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
   <style>
-    /* === DESIGN TOKENS (60-30-10 Rule) === */
-    :root {
-      --color-bg: #FFFFFF;          /* 60% - Фон */
-      --color-surface: #F5F5F7;     /* Вторичный фон для секций */
-      --color-text-primary: #1A1A2E; /* 30% - Основной текст (Темно-синий) */
-      --color-text-secondary: #6B7280; /* Вторичный текст */
-      --color-accent: #005FF9;      /* 10% - Акцент (Яндекс-синий / Tech Blue) */
-      --color-accent-hover: #004BD6;
-      --color-border: #E5E7EB;
-      
-      --font-main: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-      --container-width: 1200px;
-      --grid-gap: 24px;
-      --radius-md: 16px;
-      --radius-lg: 24px;
-    }
-
     /* === RESET & BASE === */
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --color-bg: #FFFFFF;
+      --color-text: #1A1A2E;
+      --color-accent: #4ECDC4;
+      --color-accent-hover: #3DBDB4;
+      --color-muted: #6B7280;
+      --font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      --max-width: 1200px;
+      --grid-gap: 24px;
+    }
     html { scroll-behavior: smooth; }
+    body { font-family: var(--font-family); color: var(--color-text); background-color: var(--color-bg); line-height: 1.6; -webkit-font-smoothing: antialiased; }
     
-    body {
-      font-family: var(--font-main);
-      color: var(--color-text-primary);
-      background-color: var(--color-bg);
-      line-height: 1.6;
-      -webkit-font-smoothing: antialiased;
-    }
-
-    /* Accessibility Focus */
-    :focus-visible {
-      outline: 3px solid var(--color-accent);
-      outline-offset: 2px;
-      border-radius: 4px;
-    }
-
-    .skip-link {
-      position: absolute; top: -100px; left: 0;
-      background: var(--color-accent); color: white;
-      padding: 12px 24px; z-index: 1000;
-      font-weight: 600; text-decoration: none;
-      transition: top 0.3s;
-    }
+    /* ACCESSIBILITY */
+    :focus-visible { outline: 2px solid var(--color-accent); outline-offset: 2px; }
+    .skip-link { position: absolute; top: -100%; left: 0; padding: 12px 24px; background: var(--color-text); color: var(--color-bg); z-index: 1000; font-weight: 500; text-decoration: none; }
     .skip-link:focus { top: 0; }
 
-    /* === LAYOUT UTILS === */
-    .container {
-      max-width: var(--container-width);
-      margin: 0 auto;
-      padding: 0 var(--grid-gap);
+    /* HEADER */
+    header { position: sticky; top: 0; z-index: 100; background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(8px); border-bottom: 1px solid rgba(26, 26, 46, 0.06); }
+    nav { max-width: var(--max-width); margin: 0 auto; padding: 16px var(--grid-gap); display: flex; align-items: center; justify-content: space-between; }
+    .logo { font-size: 1.25rem; font-weight: 700; color: var(--color-text); text-decoration: none; letter-spacing: -0.02em; }
+    .nav-links { display: flex; gap: 32px; list-style: none; }
+    .nav-links a { font-size: 0.9375rem; font-weight: 500; color: var(--color-muted); text-decoration: none; transition: color 0.3s ease; min-height: 44px; display: inline-flex; align-items: center; }
+    .nav-links a:hover, .nav-links a:focus-visible { color: var(--color-text); }
+
+    /* HERO SECTION */
+    .hero { max-width: var(--max-width); margin: 0 auto; padding: 80px var(--grid-gap) 100px; display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; min-height: calc(100vh - 70px); }
+    .hero__content { display: flex; flex-direction: column; gap: 24px; }
+    .hero__badge { display: inline-block; width: fit-content; padding: 6px 16px; background: rgba(78, 205, 196, 0.1); color: var(--color-accent-hover); font-size: 0.8125rem; font-weight: 500; border-radius: 100px; letter-spacing: 0.02em; }
+    .hero__title { font-size: clamp(2rem, 4vw, 3.25rem); font-weight: 700; line-height: 1.15; letter-spacing: -0.03em; color: var(--color-text); }
+    .hero__subtitle { font-size: clamp(1rem, 1.5vw, 1.1875rem); font-weight: 400; line-height: 1.7; color: var(--color-muted); max-width: 520px; }
+    .hero__actions { display: flex; gap: 16px; flex-wrap: wrap; margin-top: 8px; }
+
+    /* BUTTONS */
+    .btn { display: inline-flex; align-items: center; justify-content: center; min-height: 48px; padding: 14px 32px; font-family: var(--font-family); font-size: 1rem; font-weight: 500; border-radius: 12px; border: none; cursor: pointer; text-decoration: none; transition: all 0.3s ease; }
+    .btn--primary { background: var(--color-accent); color: var(--color-text); }
+    .btn--primary:hover { background: var(--color-accent-hover); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(78, 205, 196, 0.3); }
+    .btn--secondary { background: transparent; color: var(--color-text); border: 1.5px solid rgba(26, 26, 46, 0.15); }
+    .btn--secondary:hover { border-color: var(--color-text); background: rgba(26, 26, 46, 0.03); }
+
+    /* HERO IMAGE OPTIMIZED */
+    .hero__visual { display: flex; align-items: center; justify-content: center; }
+    .hero__image { 
+      width: 100%; 
+      max-width: 560px; 
+      height: auto; 
+      aspect-ratio: 4/3; /* Резервируем место до загрузки */
+      border-radius: 20px; 
+      object-fit: cover; 
+      background: #f0f0f0; /* Плейсхолдер цвета пока грузится */
     }
 
-    section { padding: 80px 0; }
+    /* SECTIONS COMMON */
+    section { max-width: var(--max-width); margin: 0 auto; padding: 80px var(--grid-gap); }
+    h2 { font-size: clamp(1.75rem, 3vw, 2.5rem); font-weight: 700; letter-spacing: -0.02em; margin-bottom: 16px; color: var(--color-text); }
+    .section-desc { font-size: 1.125rem; color: var(--color-muted); max-width: 600px; margin-bottom: 48px; line-height: 1.6; }
     
-    h1, h2, h3 { line-height: 1.2; letter-spacing: -0.02em; }
-    h1 { font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 700; margin-bottom: 24px; }
-    h2 { font-size: clamp(2rem, 4vw, 2.75rem); font-weight: 700; margin-bottom: 16px; }
-    h3 { font-size: 1.5rem; font-weight: 600; margin-bottom: 12px; }
-    
-    p { color: var(--color-text-secondary); font-size: 1.125rem; margin-bottom: 24px; }
-    
-    ul { list-style: none; }
-    li { position: relative; padding-left: 24px; margin-bottom: 12px; color: var(--color-text-primary); }
-    li::before {
-      content: "•"; color: var(--color-accent);
-      position: absolute; left: 0; font-weight: bold;
+    /* GRID SYSTEM FOR CARDS */
+    .cards-grid { 
+      display: grid; 
+      /* По умолчанию 4 колонки в ряд */
+      grid-template-columns: repeat(4, 1fr); 
+      gap: 24px; 
     }
+    
+    .card { 
+      padding: 32px 24px; 
+      border-radius: 16px; 
+      background: #F9FAFB; 
+      border: 1px solid rgba(26,26,46,0.05); 
+      transition: transform 0.3s ease, box-shadow 0.3s ease; 
+      height: 100%; /* Одинаковая высота карточек */
+      display: flex;
+      flex-direction: column;
+    }
+    .card:hover { transform: translateY(-4px); box-shadow: 0 12px 24px rgba(0,0,0,0.04); }
+    .card h3 { font-size: 1.25rem; font-weight: 600; margin-bottom: 12px; color: var(--color-text); }
+    .card p, .card li { font-size: 0.95rem; color: var(--color-muted); line-height: 1.6; }
+    .card ul { list-style: none; margin-top: 12px; }
+    .card li { padding-left: 18px; position: relative; margin-bottom: 8px; }
+    .card li::before { content: "•"; color: var(--color-accent); position: absolute; left: 0; font-weight: bold; }
 
-    /* === HEADER === */
-    header {
-      position: sticky; top: 0; z-index: 100;
-      background: rgba(255, 255, 255, 0.9);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--color-border);
-    }
-    
-    nav {
-      display: flex; align-items: center; justify-content: space-between;
-      height: 72px;
-    }
-    
-    .logo {
-      font-size: 1.5rem; font-weight: 700;
-      color: var(--color-text-primary);
-      text-decoration: none;
-    }
-    
-    .nav-list { display: flex; gap: 32px; }
-    .nav-list a {
-      text-decoration: none; color: var(--color-text-secondary);
-      font-weight: 500; font-size: 0.95rem;
-      transition: color 0.2s;
-      min-height: 44px; display: inline-flex; align-items: center;
-    }
-    .nav-list a:hover, .nav-list a:focus { color: var(--color-accent); }
+    /* CONTACT */
+    .contact-section { text-align: center; padding-bottom: 120px; }
+    .contact-section h2 { margin-bottom: 24px; }
+    .contact-section p { margin: 0 auto 32px; }
 
-    /* === BUTTONS === */
-    .btn {
-      display: inline-flex; align-items: center; justify-content: center;
-      min-height: 52px; padding: 0 32px;
-      font-family: var(--font-main); font-size: 1rem; font-weight: 600;
-      border-radius: var(--radius-md); border: none; cursor: pointer;
-      text-decoration: none; transition: all 0.2s ease;
-    }
-    
-    .btn-primary {
-      background: var(--color-accent); color: white;
-    }
-    .btn-primary:hover { background: var(--color-accent-hover); transform: translateY(-2px); }
-    
-    .btn-secondary {
-      background: transparent; color: var(--color-text-primary);
-      border: 1px solid var(--color-border);
-    }
-    .btn-secondary:hover { border-color: var(--color-text-primary); background: var(--color-surface); }
+    /* COOKIE NOTICE */
+    .cookie-notice { position: fixed; bottom: 0; left: 0; right: 0; background: var(--color-text); color: rgba(255, 255, 255, 0.85); padding: 14px var(--grid-gap); font-size: 0.8125rem; text-align: center; z-index: 99; display: flex; align-items: center; justify-content: center; gap: 16px; flex-wrap: wrap; }
+    .cookie-notice a { color: var(--color-accent); text-decoration: underline; text-underline-offset: 2px; }
+    .cookie-notice button { background: var(--color-accent); color: var(--color-text); border: none; padding: 6px 18px; border-radius: 6px; font-family: var(--font-family); font-size: 0.8125rem; font-weight: 500; cursor: pointer; min-height: 32px; transition: background 0.2s ease; }
+    .cookie-notice button:hover { background: var(--color-accent-hover); }
+    .cookie-notice.hidden { display: none; }
 
-    /* === HERO SECTION === */
-    .hero {
-      padding: 100px 0 80px;
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 60px; align-items: center;
-      min-height: 80vh;
-    }
-    
-    .hero__badge {
-      display: inline-block; padding: 6px 16px;
-      background: rgba(0, 95, 249, 0.08); color: var(--color-accent);
-      font-size: 0.875rem; font-weight: 600; border-radius: 100px;
-      margin-bottom: 24px;
-    }
-    
-    .hero__image-wrap {
-      background: var(--color-surface);
-      border-radius: var(--radius-lg);
-      overflow: hidden; aspect-ratio: 4/3;
-      display: flex; align-items: center; justify-content: center;
-    }
-    .hero__image { width: 100%; height: 100%; object-fit: cover; }
-
-    /* === ABOUT SECTION === */
-    .about { background: var(--color-surface); }
-    .about__grid {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start;
-    }
-    .stat-card {
-      background: var(--color-bg); padding: 32px;
-      border-radius: var(--radius-md);
-      box-shadow: 0 4px 20px rgba(0,0,0,0.03);
-    }
-    .stat-number { font-size: 3rem; font-weight: 700; color: var(--color-accent); line-height: 1; margin-bottom: 8px; }
-    .stat-label { font-size: 1rem; color: var(--color-text-secondary); }
-
-    /* === SERVICES SECTION === */
-    .services__grid {
-      display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 24px; margin-top: 48px;
-    }
-    .service-card {
-      padding: 32px; border: 1px solid var(--color-border);
-      border-radius: var(--radius-md);
-      transition: transform 0.2s, box-shadow 0.2s;
-    }
-    .service-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 12px 32px rgba(0,0,0,0.06);
-      border-color: var(--color-accent);
-    }
-    .service-icon {
-      width: 48px; height: 48px; background: rgba(0, 95, 249, 0.1);
-      border-radius: 12px; margin-bottom: 20px;
-      display: flex; align-items: center; justify-content: center;
-      color: var(--color-accent); font-size: 1.5rem;
-    }
-
-    /* === APPROACH SECTION === */
-    .approach__list {
-      display: grid; grid-template-columns: repeat(2, 1fr); gap: 40px; margin-top: 48px;
-    }
-    .approach-item h3 { color: var(--color-accent); }
-
-    /* === CONTACT SECTION === */
-    .contact { text-align: center; background: var(--color-text-primary); color: white; }
-    .contact h2 { color: white; }
-    .contact p { color: rgba(255,255,255,0.7); max-width: 600px; margin: 0 auto 32px; }
-    .contact .btn-primary { background: white; color: var(--color-text-primary); }
-    .contact .btn-primary:hover { background: var(--color-surface); }
-
-    /* === COOKIE NOTICE === */
-    .cookie-notice {
-      position: fixed; bottom: 0; left: 0; right: 0;
-      background: var(--color-text-primary); color: white;
-      padding: 16px var(--grid-gap);
-      display: flex; align-items: center; justify-content: center; gap: 24px;
-      font-size: 0.875rem; z-index: 999;
-      transform: translateY(100%); transition: transform 0.3s ease;
-    }
-    .cookie-notice.visible { transform: translateY(0); }
-    .cookie-notice a { color: var(--color-accent); text-decoration: underline; }
-    .cookie-btn {
-      background: var(--color-accent); color: white; border: none;
-      padding: 8px 20px; border-radius: 6px; cursor: pointer; font-weight: 500;
-    }
-
-    /* === RESPONSIVE === */
-    @media (max-width: 900px) {
-      .hero, .about__grid { grid-template-columns: 1fr; gap: 40px; }
-      .hero { text-align: center; padding-top: 60px; }
+    /* RESPONSIVE BREAKPOINTS */
+    @media (max-width: 1024px) {
+      /* Планшет: 2 колонки вместо 4 */
+      .cards-grid { grid-template-columns: repeat(2, 1fr); }
+      .hero { grid-template-columns: 1fr; gap: 40px; padding: 48px var(--grid-gap) 60px; text-align: center; min-height: auto; }
+      .hero__content { align-items: center; }
+      .hero__subtitle { max-width: 100%; }
       .hero__actions { justify-content: center; }
-      .approach__list { grid-template-columns: 1fr; }
-      .nav-list { display: none; } /* Mobile menu needed in prod */
+      .hero__visual { order: -1; }
+      .hero__image { max-width: 400px; }
+      .nav-links { display: none; }
+    }
+
+    @media (max-width: 600px) {
+      /* Мобильный: 1 колонка */
+      .cards-grid { grid-template-columns: 1fr; }
+      section { padding: 48px var(--grid-gap); }
+      .hero__title { font-size: 2rem; }
+      .btn { width: 100%; }
     }
   </style>
 </head>
 <body>
 
-  <a href="#main" class="skip-link">Перейти к основному контенту</a>
+  <a href="#main-content" class="skip-link">Перейти к основному контенту</a>
 
   <header role="banner">
-    <div class="container">
-      <nav aria-label="Главная навигация">
-        <a href="#" class="logo" aria-label="WTFA.RU на главную">WTFA.RU</a>
-        <ul class="nav-list" role="list">
-          <li><a href="#about">О нас</a></li>
-          <li><a href="#services">Направления</a></li>
-          <li><a href="#approach">Подход</a></li>
-          <li><a href="#contact">Контакты</a></li>
-        </ul>
-      </nav>
-    </div>
+    <nav aria-label="Главная навигация">
+      <a href="#" class="logo" aria-label="WTFA.RU — на главную">WTFA.RU</a>
+      <ul class="nav-links" role="list">
+        <li><a href="#about">О нас</a></li>
+        <li><a href="#services">Направления</a></li>
+        <li><a href="#approach">Подход</a></li>
+        <li><a href="#contact">Контакты</a></li>
+      </ul>
+    </nav>
   </header>
 
-  <main id="main">
-    
-    <!-- HERO -->
-    <section class="hero container" aria-labelledby="hero-title">
+  <main id="main-content">
+
+    <!-- HERO SECTION -->
+    <section class="hero" aria-labelledby="hero-title">
       <div class="hero__content">
         <span class="hero__badge">Data Engineering × AI/ML</span>
-        <h1 id="hero-title">Создаём будущее<br>на стыке Data и&nbsp;AI</h1>
-        <p>Команда экспертов с 12-летним опытом превращает данные в решения, а нейросети — в измеримый бизнес-результат. NVIDIA Tesla GPU-кластеры, локальные LLM, Data Governance.</p>
-        <div class="hero__actions" style="display:flex; gap:16px; flex-wrap:wrap;">
-          <a href="#contact" class="btn btn-primary">Обсудить проект</a>
-          <a href="#services" class="btn btn-secondary">Наши направления</a>
+        <h1 id="hero-title" class="hero__title">Создаём будущее<br>на стыке Data&nbsp;и&nbsp;AI</h1>
+        <p class="hero__subtitle">Команда экспертов с 12-летним опытом превращает данные в&nbsp;решения, а&nbsp;нейросети&nbsp;&mdash; в&nbsp;измеримый бизнес-результат. NVIDIA Tesla GPU-кластеры, локальные LLM, Data Governance.</p>
+        <div class="hero__actions">
+          <a href="#contact" class="btn btn--primary" role="button">Обсудить проект</a>
+          <a href="#services" class="btn btn--secondary" role="button">Наши направления</a>
         </div>
       </div>
-      <div class="hero__image-wrap">
-        <!-- Placeholder for generated image: Abstract data visualization, blue and teal neural networks on white background -->
-        <img src="https://placehold.co/800x600/F5F5F7/005FF9?text=Data+%26+AI+Visualization" 
-             alt="Абстрактная визуализация нейронных связей и потоков данных в синих тонах" 
-             class="hero__image" width="800" height="600" loading="eager">
+      <div class="hero__visual">
+        <!-- ОПТИМИЗИРОВАННОЕ ИЗОБРАЖЕНИЕ -->
+        <!-- Используйте WebP формат. Если файла нет, браузер покажет alt и фон -->
+        <picture>
+          <source srcset="hero.webp" type="image/webp">
+          <img 
+            src="https://placehold.co/800x600/F5F5F7/4ECDC4?text=WTFA+Hero+Image" 
+            alt="Абстрактная визуализация нейронных связей и потоков данных: переплетённые линии синего и бирюзового цвета на белом фоне" 
+            class="hero__image" 
+            width="560" 
+            height="420" 
+            loading="lazy"
+          >
+        </picture>
       </div>
     </section>
 
-    <!-- ABOUT -->
-    <section id="about" class="about" aria-labelledby="about-title">
-      <div class="container about__grid">
-        <div>
-          <h2 id="about-title">О нас</h2>
-          <p>WTFA.RU — это команда инженеров и аналитиков с 12-летним опытом в экосистеме крупных IT-компаний. Мы специализируемся на стыке Data и AI.</p>
+    <!-- ABOUT SECTION -->
+    <section id="about" aria-labelledby="about-title">
+      <h2 id="about-title">О нас</h2>
+      <p class="section-desc">WTFA.RU — это команда инженеров и аналитиков с 12-летним опытом в экосистеме крупных IT-компаний. Мы специализируемся на стыке Data и AI.</p>
+      <div class="cards-grid" style="grid-template-columns: repeat(2, 1fr);">
+        <div class="card">
+          <h3>Технологическая база</h3>
           <p>Наша лаборатория оснащена NVIDIA Tesla GPU-кластерами. Мы экспериментируем с архитектурой локальных LLM, администрированием AI-моделей и их применением для прикладных бизнес-задач.</p>
         </div>
-        <div style="display:grid; gap:24px;">
-          <div class="stat-card">
-            <div class="stat-number">12+</div>
-            <div class="stat-label">Лет опыта в Big Data и AI</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-number">100+</div>
-            <div class="stat-label">BI-дашбордов создано с нуля</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-number">75%</div>
-            <div class="stat-label">Снижение повторных сбоев</div>
-          </div>
+        <div class="card">
+          <h3>Ключевые компетенции</h3>
+          <ul>
+            <li>Data Governance & Quality</li>
+            <li>BI-аналитика и дашборды</li>
+            <li>Нейросети и машинное обучение</li>
+            <li>Продуктовая аналитика</li>
+          </ul>
         </div>
       </div>
     </section>
 
-    <!-- SERVICES -->
-    <section id="services" class="container" aria-labelledby="services-title">
+    <!-- SERVICES SECTION (FIXED 4 COLUMNS) -->
+    <section id="services" aria-labelledby="services-title">
       <h2 id="services-title">Направления</h2>
-      <p>Комплексные решения от инфраструктуры до внедрения AI</p>
-      
-      <div class="services__grid">
-        <article class="service-card">
-          <div class="service-icon" aria-hidden="true">🤖</div>
+      <p class="section-desc">Комплексные решения от инфраструктуры до внедрения искусственного интеллекта.</p>
+      <div class="cards-grid">
+        <article class="card">
           <h3>AI & Нейросети</h3>
           <ul>
             <li>Локальные LLM: архитектура и администрирование</li>
@@ -306,9 +207,7 @@
             <li>Внедрение AI в бизнес-процессы</li>
           </ul>
         </article>
-
-        <article class="service-card">
-          <div class="service-icon" aria-hidden="true">📊</div>
+        <article class="card">
           <h3>Аналитика & BI</h3>
           <ul>
             <li>SQL (оконные функции, оптимизация)</li>
@@ -317,9 +216,7 @@
             <li>CJM и продуктовая аналитика</li>
           </ul>
         </article>
-
-        <article class="service-card">
-          <div class="service-icon" aria-hidden="true">🛡️</div>
+        <article class="card">
           <h3>Data Governance</h3>
           <ul>
             <li>Data Stewardship (сертификат DQ NEO)</li>
@@ -328,9 +225,7 @@
             <li>Снижение ошибок на 10%</li>
           </ul>
         </article>
-
-        <article class="service-card">
-          <div class="service-icon" aria-hidden="true">⚙️</div>
+        <article class="card">
           <h3>Инфраструктура</h3>
           <ul>
             <li>PostgreSQL, Oracle, ClickHouse</li>
@@ -342,64 +237,44 @@
       </div>
     </section>
 
-    <!-- APPROACH -->
-    <section id="approach" class="about" aria-labelledby="approach-title">
-      <div class="container">
-        <h2 id="approach-title">Наш подход</h2>
-        <p>Принципы, которые гарантируют качество и предсказуемость результата</p>
-        
-        <div class="approach__list">
-          <div class="approach-item">
-            <h3>Data-Driven решения</h3>
-            <p>Каждое решение основано на данных. Мы строим дерево Health-метрик продукта (Uptime, SLA, CSAT) и создаем BI-дашборды, дающие полную картину состояния системы.</p>
-          </div>
-          <div class="approach-item">
-            <h3>AI-эксперименты</h3>
-            <p>Мы не просто изучаем нейросети — мы внедряем их. Домашняя лаборатория на базе NVIDIA Tesla позволяет тестировать локальные LLM и находить оптимальные решения.</p>
-          </div>
-          <div class="approach-item">
-            <h3>Quality First</h3>
-            <p>Data Quality — основа всего. Мы разрабатываем автоматизированные DQ-проверки, создаем регламенты Data Governance и обеспечиваем качество данных на всех уровнях.</p>
-          </div>
-          <div class="approach-item">
-            <h3>Превентивный подход</h3>
-            <p>Проводим глубокие RCA/post-mortem разборы, выявляем корневые причины проблем и внедряем превентивные меры. Результат: снижение повторных сбоев на 75%.</p>
-          </div>
+    <!-- APPROACH SECTION (FIXED 4 COLUMNS) -->
+    <section id="approach" aria-labelledby="approach-title">
+      <h2 id="approach-title">Наш подход</h2>
+      <p class="section-desc">Принципы, которые гарантируют качество и предсказуемость результата.</p>
+      <div class="cards-grid">
+        <div class="card">
+          <h3>Data-Driven решения</h3>
+          <p>Каждое решение основано на данных. Мы строим дерево Health-метрик продукта (Uptime, SLA, CSAT) и создаем BI-дашборды, дающие полную картину состояния системы.</p>
+        </div>
+        <div class="card">
+          <h3>AI-эксперименты</h3>
+          <p>Мы не просто изучаем нейросети — мы внедряем их. Домашняя лаборатория на базе NVIDIA Tesla позволяет тестировать локальные LLM и находить оптимальные решения.</p>
+        </div>
+        <div class="card">
+          <h3>Quality First</h3>
+          <p>Data Quality — основа всего. Мы разрабатываем автоматизированные DQ-проверки, создаем регламенты Data Governance и обеспечиваем качество данных на всех уровнях.</p>
+        </div>
+        <div class="card">
+          <h3>Превентивный подход</h3>
+          <p>Проводим глубокие RCA/post-mortem разборы, выявляем корневые причины проблем и внедряем превентивные меры. Результат: снижение повторных сбоев на 75%.</p>
         </div>
       </div>
     </section>
 
-    <!-- CONTACT -->
-    <section id="contact" class="contact" aria-labelledby="contact-title">
-      <div class="container">
-        <h2 id="contact-title">Готовы обсудить проект?</h2>
-        <p>Напишите нам, чтобы получить консультацию по Data Engineering, AI или BI-аналитике. Мы ответим в течение рабочего дня.</p>
-        <a href="mailto:info@wtfa.ru" class="btn btn-primary">Написать на Email</a>
-      </div>
+    <!-- CONTACT SECTION -->
+    <section id="contact" class="contact-section" aria-labelledby="contact-title">
+      <h2 id="contact-title">Связаться с нами</h2>
+      <p class="section-desc">Готовы обсудить ваш проект? Напишите нам, и мы предложим оптимальное техническое решение.</p>
+      <a href="mailto:info@wtfa.ru" class="btn btn--primary">Написать на Email</a>
     </section>
 
   </main>
 
   <!-- COOKIE NOTICE -->
   <div class="cookie-notice" id="cookieNotice" role="complementary" aria-label="Уведомление о cookies">
-    <span>Мы используем cookies для улучшения работы сайта. <a href="/privacy">Подробнее</a></span>
-    <button class="cookie-btn" onclick="document.getElementById('cookieNotice').classList.remove('visible')" aria-label="Закрыть уведомление о cookies">OK</button>
+    <span>Мы используем cookies для улучшения работы сайта. <a href="/privacy" target="_blank" rel="noopener noreferrer">Подробнее о политике конфиденциальности</a></span>
+    <button type="button" onclick="document.getElementById('cookieNotice').classList.add('hidden')" aria-label="Принять использование cookies">Принять</button>
   </div>
-
-  <script>
-    // Show cookie notice after 1 second if not accepted
-    setTimeout(() => {
-      if (!localStorage.getItem('cookiesAccepted')) {
-        document.getElementById('cookieNotice').classList.add('visible');
-      }
-    }, 1000);
-
-    // Hide cookie notice on click and save preference
-    document.querySelector('.cookie-btn').addEventListener('click', () => {
-      localStorage.setItem('cookiesAccepted', 'true');
-      document.getElementById('cookieNotice').classList.remove('visible');
-    });
-  </script>
 
 </body>
 </html>
