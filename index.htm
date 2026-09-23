@@ -1,551 +1,388 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WTFA.RU | Создаем будущее на стыке Data и AI</title>
-    <!-- Новая, гармоничная подборка шрифтов -->
-    <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@400;600;700&family=Montserrat:wght@300;400;600&family=Russo+One&family=Share+Tech+Mono&display=swap" rel="stylesheet">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WTFA.RU — Data & AI решения</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    /* === RESET & BASE === */
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-        body {
-            font-family: 'Montserrat', sans-serif;
-            background-color: #0a0a0a;
-            color: #e0e0e0;
-            overflow-x: hidden;
-            position: relative;
-            line-height: 1.6;
-        }
+    :root {
+      --color-bg: #FFFFFF;
+      --color-text: #1A1A2E;
+      --color-accent: #4ECDC4;
+      --color-accent-hover: #3DBDB4;
+      --color-muted: #6B7280;
+      --font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      --max-width: 1200px;
+      --grid-gap: 24px;
+    }
 
-        /* VHS Scanlines Overlay */
-        body::before {
-            content: "";
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: repeating-linear-gradient(
-                0deg,
-                rgba(0, 0, 0, 0.15),
-                rgba(0, 0, 0, 0.15) 1px,
-                transparent 1px,
-                transparent 2px
-            );
-            pointer-events: none;
-            z-index: 1000;
-        }
+    html {
+      scroll-behavior: smooth;
+    }
 
-        /* Chromatic Aberration Effect */
-        .glitch-text {
-            position: relative;
-            animation: glitch 3s infinite;
-        }
+    body {
+      font-family: var(--font-family);
+      color: var(--color-text);
+      background-color: var(--color-bg);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
 
-        @keyframes glitch {
-            0%, 100% {
-                text-shadow: 
-                    2px 0 #ff006e,
-                    -2px 0 #00f5ff;
-            }
-            25% {
-                text-shadow: 
-                    -2px 0 #ff006e,
-                    2px 0 #00f5ff;
-            }
-            50% {
-                text-shadow: 
-                    2px 2px #ff006e,
-                    -2px -2px #00f5ff;
-            }
-            75% {
-                text-shadow: 
-                    -2px 2px #ff006e,
-                    2px -2px #00f5ff;
-            }
-        }
+    /* === ACCESSIBILITY: Focus styles === */
+    :focus-visible {
+      outline: 2px solid var(--color-accent);
+      outline-offset: 2px;
+    }
 
-        /* Hero Section */
-        .hero {
-            position: relative;
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-        }
+    /* Skip link for screen readers */
+    .skip-link {
+      position: absolute;
+      top: -100%;
+      left: 0;
+      padding: 12px 24px;
+      background: var(--color-text);
+      color: var(--color-bg);
+      z-index: 1000;
+      font-weight: 500;
+      text-decoration: none;
+    }
+    .skip-link:focus {
+      top: 0;
+    }
 
-        .hero-bg {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: url('image2.png') center/cover no-repeat;
-            filter: brightness(0.4) contrast(1.3) saturate(1.4);
-            z-index: 1;
-        }
+    /* === HEADER / NAV === */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid rgba(26, 26, 46, 0.06);
+    }
 
-        .hero-content {
-            position: relative;
-            z-index: 10;
-            text-align: center;
-            padding: 3rem;
-            background: rgba(10, 10, 10, 0.75);
-            border: 2px solid #ff006e;
-            box-shadow: 0 0 50px rgba(255, 0, 110, 0.4), inset 0 0 30px rgba(255, 0, 110, 0.1);
-            backdrop-filter: blur(5px);
-            max-width: 1000px;
-        }
+    nav {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 16px var(--grid-gap);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
 
-        .hero h1 {
-            font-family: 'Russo One', sans-serif;
-            font-size: 4rem;
-            color: #ff006e;
-            margin-bottom: 1rem;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-        }
+    .logo {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--color-text);
+      text-decoration: none;
+      letter-spacing: -0.02em;
+    }
 
-        .hero .subtitle {
-            font-family: 'Exo 2', sans-serif;
-            font-weight: 700;
-            font-size: 1.8rem;
-            color: #00f5ff;
-            margin-bottom: 2rem;
-            text-shadow: 0 0 15px #00f5ff;
-            letter-spacing: 0.05em;
-        }
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      list-style: none;
+    }
 
-        .hero .tagline {
-            font-size: 1.2rem;
-            color: #fff;
-            max-width: 800px;
-            margin: 0 auto;
-            line-height: 1.7;
-            font-weight: 300;
-        }
+    .nav-links a {
+      font-size: 0.9375rem;
+      font-weight: 500;
+      color: var(--color-muted);
+      text-decoration: none;
+      transition: color 0.3s ease;
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+    }
 
-        /* Section Styles */
-        section {
-            padding: 6rem 2rem;
-            position: relative;
-        }
+    .nav-links a:hover,
+    .nav-links a:focus-visible {
+      color: var(--color-text);
+    }
 
-        .section-title {
-            font-family: 'Russo One', sans-serif;
-            font-size: 2.5rem;
-            color: #ff006e;
-            margin-bottom: 3.5rem;
-            text-align: center;
-            text-transform: uppercase;
-            text-shadow: 0 0 20px rgba(255, 0, 110, 0.6);
-            letter-spacing: 0.05em;
-        }
+    /* === HERO SECTION === */
+    .hero {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 80px var(--grid-gap) 100px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+      min-height: calc(100vh - 70px);
+    }
 
-        /* About Section */
-        .about {
-            background: linear-gradient(135deg, #120418 0%, #0a0a0a 100%);
-            display: grid;
-            grid-template-columns: 1fr 1.2fr;
-            gap: 4rem;
-            align-items: center;
-            max-width: 1300px;
-            margin: 0 auto;
-        }
+    .hero__content {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
 
-        .about-image {
-            position: relative;
-            border: 2px solid #00f5ff;
-            box-shadow: 0 0 40px rgba(0, 245, 255, 0.3);
-            overflow: hidden;
-        }
+    .hero__badge {
+      display: inline-block;
+      width: fit-content;
+      padding: 6px 16px;
+      background: rgba(78, 205, 196, 0.1);
+      color: var(--color-accent-hover);
+      font-size: 0.8125rem;
+      font-weight: 500;
+      border-radius: 100px;
+      letter-spacing: 0.02em;
+    }
 
-        .about-image img {
-            width: 100%;
-            height: auto;
-            display: block;
-            filter: contrast(1.2) saturate(1.3);
-            transition: all 0.4s ease;
-        }
+    .hero__title {
+      font-size: clamp(2rem, 4vw, 3.25rem);
+      font-weight: 700;
+      line-height: 1.15;
+      letter-spacing: -0.03em;
+      color: var(--color-text);
+    }
 
-        .about-image:hover img {
-            transform: scale(1.03);
-            filter: contrast(1.3) saturate(1.5);
-        }
+    .hero__subtitle {
+      font-size: clamp(1rem, 1.5vw, 1.1875rem);
+      font-weight: 400;
+      line-height: 1.7;
+      color: var(--color-muted);
+      max-width: 520px;
+    }
 
-        .about-text {
-            font-size: 1.15rem;
-            line-height: 1.8;
-            font-weight: 300;
-        }
+    .hero__actions {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-top: 8px;
+    }
 
-        .about-text p {
-            margin-bottom: 1.5rem;
-        }
+    /* === BUTTONS (min 44x44px touch target) === */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 48px;
+      padding: 14px 32px;
+      font-family: var(--font-family);
+      font-size: 1rem;
+      font-weight: 500;
+      border-radius: 12px;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
 
-        .highlight {
-            font-family: 'Exo 2', sans-serif;
-            font-weight: 600;
-            color: #00f5ff;
-            text-shadow: 0 0 8px rgba(0, 245, 255, 0.5);
-        }
+    .btn--primary {
+      background: var(--color-accent);
+      color: var(--color-text);
+    }
 
-        /* Services Section */
-        .services {
-            background: #0a0a0a;
-        }
+    .btn--primary:hover {
+      background: var(--color-accent-hover);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(78, 205, 196, 0.3);
+    }
 
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            max-width: 1300px;
-            margin: 0 auto;
-        }
+    .btn--secondary {
+      background: transparent;
+      color: var(--color-text);
+      border: 1.5px solid rgba(26, 26, 46, 0.15);
+    }
 
-        .service-card {
-            background: rgba(18, 4, 24, 0.8);
-            border: 1px solid #00f5ff;
-            padding: 2.5rem 2rem;
-            position: relative;
-            transition: all 0.3s ease;
-        }
+    .btn--secondary:hover {
+      border-color: var(--color-text);
+      background: rgba(26, 26, 46, 0.03);
+    }
 
-        .service-card:hover {
-            border-color: #ff006e;
-            box-shadow: 0 0 30px rgba(255, 0, 110, 0.4);
-            transform: translateY(-5px);
-        }
+    /* === HERO IMAGE === */
+    .hero__visual {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
 
-        .service-card h3 {
-            font-family: 'Exo 2', sans-serif;
-            font-weight: 700;
-            color: #00f5ff;
-            font-size: 1.4rem;
-            margin-bottom: 1.5rem;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
+    .hero__image {
+      width: 100%;
+      max-width: 560px;
+      height: auto;
+      border-radius: 20px;
+      object-fit: cover;
+    }
 
-        .service-card ul {
-            list-style: none;
-            font-family: 'Share Tech Mono', monospace;
-            font-size: 1.05rem;
-            color: #d0d0d0;
-        }
+    /* === COOKIE NOTICE === */
+    .cookie-notice {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: var(--color-text);
+      color: rgba(255, 255, 255, 0.85);
+      padding: 14px var(--grid-gap);
+      font-size: 0.8125rem;
+      text-align: center;
+      z-index: 99;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
 
-        .service-card li {
-            padding: 0.6rem 0;
-            border-bottom: 1px solid rgba(0, 245, 255, 0.15);
-            position: relative;
-            padding-left: 1.5rem;
-        }
+    .cookie-notice a {
+      color: var(--color-accent);
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
 
-        .service-card li:last-child {
-            border-bottom: none;
-        }
+    .cookie-notice button {
+      background: var(--color-accent);
+      color: var(--color-text);
+      border: none;
+      padding: 6px 18px;
+      border-radius: 6px;
+      font-family: var(--font-family);
+      font-size: 0.8125rem;
+      font-weight: 500;
+      cursor: pointer;
+      min-height: 32px;
+      transition: background 0.2s ease;
+    }
 
-        .service-card li:before {
-            content: ">";
-            position: absolute;
-            left: 0;
-            color: #ff006e;
-            font-weight: bold;
-        }
+    .cookie-notice button:hover {
+      background: var(--color-accent-hover);
+    }
 
-        /* Approach Section */
-        .approach {
-            background: linear-gradient(135deg, #0a0a0a 0%, #120418 100%);
-        }
+    .cookie-notice.hidden {
+      display: none;
+    }
 
-        .approach-content {
-            max-width: 1100px;
-            margin: 0 auto;
-        }
+    /* === RESPONSIVE === */
+    @media (max-width: 900px) {
+      .hero {
+        grid-template-columns: 1fr;
+        gap: 40px;
+        padding: 48px var(--grid-gap) 60px;
+        text-align: center;
+        min-height: auto;
+      }
 
-        .approach-item {
-            margin-bottom: 2rem;
-            padding: 2rem;
-            border-left: 3px solid #ff006e;
-            background: rgba(18, 4, 24, 0.5);
-            transition: all 0.3s ease;
-        }
+      .hero__content {
+        align-items: center;
+      }
 
-        .approach-item:hover {
-            border-left-color: #00f5ff;
-            background: rgba(18, 4, 24, 0.8);
-            transform: translateX(10px);
-        }
+      .hero__subtitle {
+        max-width: 100%;
+      }
 
-        .approach-item h3 {
-            font-family: 'Exo 2', sans-serif;
-            font-weight: 700;
-            color: #00f5ff;
-            font-size: 1.3rem;
-            margin-bottom: 1rem;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
+      .hero__actions {
+        justify-content: center;
+      }
 
-        .approach-item p {
-            font-size: 1.1rem;
-            line-height: 1.7;
-            font-weight: 300;
-        }
+      .hero__visual {
+        order: -1;
+      }
 
-        /* Contact Section */
-        .contact {
-            background: #120418;
-            text-align: center;
-            padding: 6rem 2rem;
-        }
+      .hero__image {
+        max-width: 400px;
+      }
+    }
 
-        .contact-links {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            flex-wrap: wrap;
-            margin-top: 3rem;
-        }
+    @media (max-width: 600px) {
+      .nav-links {
+        display: none; /* Replace with hamburger in production */
+      }
 
-        .contact-link {
-            font-family: 'Exo 2', sans-serif;
-            font-weight: 600;
-            font-size: 1.2rem;
-            color: #00f5ff;
-            text-decoration: none;
-            padding: 1rem 2.5rem;
-            border: 1px solid #00f5ff;
-            transition: all 0.3s ease;
-            display: inline-block;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-        }
+      .hero {
+        padding: 32px 16px 48px;
+      }
 
-        .contact-link:hover {
-            background: #00f5ff;
-            color: #0a0a0a;
-            box-shadow: 0 0 30px rgba(0, 245, 255, 0.6);
-            transform: translateY(-3px);
-        }
+      .hero__title {
+        font-size: 1.75rem;
+      }
 
-        /* Responsive */
-        @media (max-width: 900px) {
-            .about {
-                grid-template-columns: 1fr;
-                gap: 2.5rem;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-
-            .hero .subtitle {
-                font-size: 1.3rem;
-            }
-
-            .hero .tagline {
-                font-size: 1rem;
-            }
-
-            .section-title {
-                font-size: 1.8rem;
-            }
-
-            .hero-content {
-                padding: 2rem 1.5rem;
-            }
-        }
-
-        /* Scroll Animation */
-        .fade-in {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.6s ease, transform 0.6s ease;
-        }
-
-        .fade-in.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    </style>
+      .btn {
+        width: 100%;
+        padding: 16px 24px;
+      }
+    }
+  </style>
 </head>
 <body>
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="hero-bg"></div>
-        <div class="hero-content">
-            <h1 class="glitch-text">WTFA.RU</h1>
-            <div class="subtitle">Создаем будущее на стыке Data и AI</div>
-            <div class="tagline">
-                Команда экспертов, объединяющая <span class="highlight">Data Engineering</span>, 
-                <span class="highlight">AI/ML</span> и <span class="highlight">Product Analytics</span>. 
-                Превращаем данные в решения, а нейросети — в результат.
-            </div>
+
+  <!-- Accessibility: Skip navigation -->
+  <a href="#main-content" class="skip-link">Перейти к основному контенту</a>
+
+  <!-- === HEADER === -->
+  <header role="banner">
+    <nav aria-label="Главная навигация">
+      <a href="/" class="logo" aria-label="WTFA.RU — на главную">WTFA.RU</a>
+      <ul class="nav-links" role="list">
+        <li><a href="#about">О нас</a></li>
+        <li><a href="#services">Направления</a></li>
+        <li><a href="#approach">Подход</a></li>
+        <li><a href="#contact">Контакты</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- === MAIN CONTENT === -->
+  <main id="main-content">
+
+    <!-- === HERO SECTION === -->
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero__content">
+        <span class="hero__badge">Data Engineering × AI/ML</span>
+
+        <h1 id="hero-title" class="hero__title">
+          Создаём будущее<br>на стыке Data&nbsp;и&nbsp;AI
+        </h1>
+
+        <p class="hero__subtitle">
+          Команда экспертов с 12-летним опытом превращает данные в&nbsp;решения,
+          а&nbsp;нейросети&nbsp;&mdash; в&nbsp;измеримый бизнес-результат.
+          NVIDIA Tesla GPU-кластеры, локальные LLM, Data Governance.
+        </p>
+
+        <div class="hero__actions">
+          <a href="#contact" class="btn btn--primary" role="button">
+            Обсудить проект
+          </a>
+          <a href="#services" class="btn btn--secondary" role="button">
+            Наши направления
+          </a>
         </div>
+      </div>
+
+      <div class="hero__visual">
+        <img
+          src="hero-abstract-data-ai.png"
+          alt="Абстрактная визуализация нейронных связей и потоков данных: переплетённые линии синего и бирюзового цвета на белом фоне"
+          class="hero__image"
+          width="560"
+          height="420"
+          loading="eager"
+        >
+      </div>
     </section>
 
-    <!-- About Section -->
-    <section class="about fade-in">
-        <div class="about-image">
-            <img src="image2.png" alt="AI Infrastructure Lab">
-        </div>
-        <div class="about-text">
-            <h2 class="section-title">О нас</h2>
-            <p>
-                <span class="highlight">WTFA.RU</span> — это команда инженеров и аналитиков с 12-летним опытом 
-                в экосистеме крупных IT-компаний. Мы специализируемся на стыке 
-                <span class="highlight">Data</span> и <span class="highlight">AI</span>.
-            </p>
-            <p>
-                Наша лаборатория оснащена <span class="highlight">NVIDIA Tesla GPU-кластерами</span>. 
-                Мы экспериментируем с архитектурой локальных LLM, администрированием AI-моделей 
-                и их применением для прикладных бизнес-задач.
-            </p>
-            <p>
-                Ключевые направления: <span class="highlight">Data Governance</span>, 
-                <span class="highlight">Data Quality</span>, 
-                <span class="highlight">BI-аналитика</span>, 
-                <span class="highlight">нейросети</span> и машинное обучение.
-            </p>
-        </div>
-    </section>
+  </main>
 
-    <!-- Services Section -->
-    <section class="services fade-in">
-        <h2 class="section-title">Направления</h2>
-        <div class="services-grid">
-            <div class="service-card">
-                <h3>AI & Нейросети</h3>
-                <ul>
-                    <li>Локальные LLM: архитектура и администрирование</li>
-                    <li>NVIDIA Tesla GPU-кластеры</li>
-                    <li>Python для ML (Pandas, NumPy)</li>
-                    <li>Эксперименты с AI-моделями</li>
-                    <li>Внедрение AI в бизнес-процессы</li>
-                </ul>
-            </div>
-            <div class="service-card">
-                <h3>Аналитика & BI</h3>
-                <ul>
-                    <li>SQL (оконные функции, оптимизация)</li>
-                    <li>BI-дашборды (Grafana, SSRS)</li>
-                    <li>100+ дашбордов с нуля</li>
-                    <li>Health-метрики продукта</li>
-                    <li>CJM и продуктовая аналитика</li>
-                </ul>
-            </div>
-            <div class="service-card">
-                <h3>Data Governance</h3>
-                <ul>
-                    <li>Data Stewardship (сертификат DQ NEO)</li>
-                    <li>Data Quality проверки (50+ автоматизированных)</li>
-                    <li>MDM и справочные данные</li>
-                    <li>Валидация и метаданные</li>
-                    <li>Снижение ошибок на 10%</li>
-                </ul>
-            </div>
-            <div class="service-card">
-                <h3>Инфраструктура</h3>
-                <ul>
-                    <li>PostgreSQL, Oracle, MS-SQL, ClickHouse</li>
-                    <li>Kafka, RabbitMQ</li>
-                    <li>Docker, Linux, Git, Bash</li>
-                    <li>OpenSearch, Zabbix, Prometheus</li>
-                    <li>SimpleOne, Remedy ITSM</li>
-                </ul>
-            </div>
-        </div>
-    </section>
+  <!-- === COOKIE NOTICE === -->
+  <div class="cookie-notice" id="cookieNotice" role="complementary" aria-label="Уведомление о cookies">
+    <span>
+      Мы используем cookies для улучшения работы сайта.
+      <a href="/privacy" target="_blank" rel="noopener noreferrer">Подробнее о политике конфиденциальности</a>
+    </span>
+    <button type="button" onclick="document.getElementById('cookieNotice').classList.add('hidden')" aria-label="Принять использование cookies">
+      Принять
+    </button>
+  </div>
 
-    <!-- Approach Section -->
-    <section class="approach fade-in">
-        <h2 class="section-title">Наш подход</h2>
-        <div class="approach-content">
-            <div class="approach-item">
-                <h3>Data-Driven решения</h3>
-                <p>
-                    Каждое решение основано на данных. Мы строим дерево Health-метрик продукта 
-                    (Uptime, SLA, CSAT, Time-to-Resolve) и создаем BI-дашборды, которые дают 
-                    полную картину состояния системы.
-                </p>
-            </div>
-            <div class="approach-item">
-                <h3>AI-эксперименты</h3>
-                <p>
-                    Мы не просто изучаем нейросети — мы внедряем их. Домашняя лаборатория на базе 
-                    NVIDIA Tesla позволяет тестировать локальные LLM и находить оптимальные решения 
-                    для прикладных задач.
-                </p>
-            </div>
-            <div class="approach-item">
-                <h3>Quality First</h3>
-                <p>
-                    Data Quality — основа всего. Мы разрабатываем и внедряем автоматизированные 
-                    DQ-проверки, создаем регламенты Data Governance и обеспечиваем качество данных 
-                    на всех уровнях.
-                </p>
-            </div>
-            <div class="approach-item">
-                <h3>Превентивный подход</h3>
-                <p>
-                    Проводим глубокие RCA/post-mortem разборы, выявляем корневые причины проблем 
-                    и внедряем превентивные меры. Результат: снижение повторных сбоев на 75%.
-                </p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section class="contact fade-in">
-        <h2 class="section-title">Связаться с нами</h2>
-        <div class="contact-links">
-            <a href="mailto:a.andrianov@pedalhard.ru" class="contact-link">Email</a>
-            <a href="https://wtfa.ru" class="contact-link">WTFA.RU</a>
-        </div>
-    </section>
-
-    <script>
-        // Scroll Animation
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: "0px 0px -50px 0px"
-        };
-
-        const observer = new IntersectionObserver(function(entries) {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
-            });
-        }, observerOptions);
-
-        document.querySelectorAll('.fade-in').forEach(el => {
-            observer.observe(el);
-        });
-
-        // Glitch effect on scroll
-        let lastScroll = 0;
-        window.addEventListener('scroll', () => {
-            const currentScroll = window.pageYOffset;
-            if (Math.abs(currentScroll - lastScroll) > 50) {
-                document.querySelectorAll('.glitch-text').forEach(el => {
-                    el.style.animation = 'none';
-                    setTimeout(() => {
-                        el.style.animation = 'glitch 3s infinite';
-                    }, 10);
-                });
-                lastScroll = currentScroll;
-            }
-        });
-    </script>
 </body>
 </html>
